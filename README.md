@@ -1,5 +1,8 @@
 # Daun HR Backend (hris-BE)
 
+> **Development only / Phase 0 governance.** Feature development remains on hold. Current web auto-deploy is owner-authorized development, even if the domain looks production-like. No real employee data or production release until approved. See [AGENTS.md](AGENTS.md) and [central roadmap](https://github.com/Hisyam-Dzaki/Hris-BE/pull/1).
+
+
 Backend REST API untuk sistem HRIS Daun HR. Dibangun dengan Go + Gin + GORM + PostgreSQL.
 
 ## Tech Stack
@@ -94,7 +97,7 @@ HTTP Request
 Sistem menggunakan **Shared Database + company_id**:
 
 - Setiap tabel memiliki kolom `company_id`
-- User hanya bisa akses data perusahaan sendiri
+- Target: isolasi tenant; currently not guaranteed across all endpoints
 - JWT token menyimpan `company_id` pengguna
 
 ## Environment Variables
@@ -106,10 +109,10 @@ Sistem menggunakan **Shared Database + company_id**:
 | `DB_HOST` | `localhost` | Database host |
 | `DB_PORT` | `5432` | Database port |
 | `DB_USER` | `hris_admin` | Database user |
-| `DB_PASSWORD` | `hris_secret_2026` | Database password |
+| `DB_PASSWORD` | Development fallback in code; not for production | Database password |
 | `DB_NAME` | `hris_db` | Database name |
-| `DB_SSLMODE` | `disable` | SSL mode |
-| `JWT_SECRET` | - | Secret key JWT |
+| `DB_SSLMODE` | `disable` (local only) | Production: private network and verified TLS as appropriate |
+| `JWT_SECRET` | Known fallback in code | Production must require injected strong secret (not implemented) |
 | `JWT_EXPIRY_HOURS` | `24` | Token expiry (jam) |
 
 ## Cara Jalankan
@@ -379,7 +382,7 @@ curl "http://localhost:8080/api/employees?page=1&limit=10&search=budi&department
 
 ## Phased Development
 
-### Phase 1 (Completed)
+### Phase 1 (Scaffold implemented; security validation pending)
 - Project setup + Docker
 - Auth system (register, login, JWT)
 - User & Role management
@@ -387,7 +390,7 @@ curl "http://localhost:8080/api/employees?page=1&limit=10&search=budi&department
 - Employee management (CRUD + search + pagination)
 - Department & Location
 
-### Phase 2 (Next)
+### Phase 2 (Planned; not authorized yet)
 - Attendance (clock-in/out)
 - Leave management
 - Shift scheduling
@@ -424,3 +427,6 @@ curl "http://localhost:8080/api/employees?page=1&limit=10&search=budi&department
 ## License
 
 Private - Daun HR
+
+## Development versus future production
+Development only: disposable PostgreSQL, synthetic data, local/designated dev VPS. Existing defaults, host port binding, public registration, broad CORS, startup auto-migration and incomplete authorization are not safe for real data. Production needs separate secrets/database, private networking, explicit RBAC and tenant isolation, reviewed migrations, backup/restore and release approval. See [SECURITY.md](SECURITY.md).
