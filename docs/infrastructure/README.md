@@ -1,6 +1,6 @@
 # Daun HR — Infrastructure baseline (2026-11-19)
 
-Status: proposed design, documentation only. Product development, provisioning, production deploy and purchases remain on HOLD until owner approval. Source of truth for [web](https://github.com/Hisyam-Dzaki/hris-web), [backend](https://github.com/Hisyam-Dzaki/Hris-BE), [mobile](https://github.com/Hisyam-Dzaki/Hris-Mobile). See [ADR](ADR-001.md) and [architecture image](architecture.svg).
+Status: proposed design, documentation only. Product feature development, provisioning, real production deployment and purchases remain on HOLD until owner approval. Existing web auto-deploy is explicitly owner-authorized for development only, even with a production-looking hostname; workflow remains unchanged. Source of truth for [web](https://github.com/Hisyam-Dzaki/hris-web), [backend](https://github.com/Hisyam-Dzaki/Hris-BE), [mobile](https://github.com/Hisyam-Dzaki/Hris-Mobile). See [ADR](ADR-001.md) and [architecture image](architecture.svg).
 
 ## Deployment tiers
 | Tier | Compute | Scope | Planning budget/month (IDR, not quote) |
@@ -34,4 +34,4 @@ Examples only; domain availability not verified. Start one parent domain, e.g. d
 - [ ] Domain strategy, TLS, private DB network, secret rotation, least privilege, audit logs, data lifecycle and PDP/PSE applicability review.
 - [ ] Synthetic benchmark, provider resize/IOPS/billing verification, capacity and financial gates.
 - [ ] K3s sandbox, manifests/Helm only when migration justified; test N-1, rolling update, node/DB failure, backup restore.
-No code/config changes authorized in this documentation PR. Review before merge. References: https://docs.k3s.io/installation/ha-embedded/ ; https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ ; https://docs.k3s.io/installation/requirements .
+No code/config changes authorized in this documentation PR. See [project status](../governance/PROJECT_STATUS.md) for the development deployment exception. Review before merge. References: https://docs.k3s.io/installation/ha-embedded/ ; https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ ; https://docs.k3s.io/installation/requirements .
